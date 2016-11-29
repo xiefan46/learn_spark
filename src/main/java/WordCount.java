@@ -19,7 +19,8 @@ public class WordCount {
     public static void main(String[] args) throws Exception{
         SparkConf conf = new SparkConf().setAppName("WordCount").setMaster("spark://sandbox.hortonworks.com:7077");
         JavaSparkContext sc = new JavaSparkContext(conf);
-        JavaRDD<String> input = sc.parallelize(Arrays.asList("hello world. hello me hello"));
+        //JavaRDD<String> input = sc.parallelize(Arrays.asList("hello world. hello me hello"));
+        JavaRDD<String> input = sc.textFile("src/main/resources/test.txt");
         JavaRDD<String> words = input.flatMap(new FlatMapFunction<String, String>() {
             public Iterator<String> call(String s) throws Exception {
                 return Arrays.asList(s.split(" ")).iterator();
